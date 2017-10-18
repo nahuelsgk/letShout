@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Behat">
+    <behat_settings>
+      <BehatSettings />
+    </behat_settings>
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="." />
+      <path value="/usr/share/php" />
+      <path value="/usr/share/pear" />
+    </include_path>
+  </component>
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter home="ssh://vagrant@192.168.10.10:22/usr/bin/php" id="ddc721fc-4571-445e-98a3-110009500cf5" name="Remote PHP 7 refreshed (project level)" debugger_id="php.debugger.XDebug">
+        <remote_data HOST="192.168.10.10" PORT="22" USERNAME="vagrant" PRIVATE_KEY_FILE="$USER_HOME$/.ssh/id_rsa" MY_KNOWN_HOSTS_FILE="" USE_KEY_PAIR="true" USE_AUTH_AGENT="false" INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/vagrant/.phpstorm_helpers" INITIALIZED="false" VALID="true" />
+      </interpreter>
+    </interpreters>
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings />
+      <phpunit_by_interpreter interpreter_id="ddc721fc-4571-445e-98a3-110009500cf5" load_method="CUSTOM_LOADER" custom_loader_path="/home/vagrant/sites/jet8/jet8/vendor/autoload.php" phpunit_phar_path="" />
+    </phpunit_settings>
+  </component>
+</project>
