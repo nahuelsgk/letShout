@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    oauth_access_token: "change-with-twitter-token"
+    oauth_access_token_secret: "change-with-twitter-token"
+    consumer_key: "change-with-twitter-token"
+    consumer_secret: "change-with-twitter-token"
