@@ -1,7 +1,7 @@
 <?php namespace Tests\AppBundle\Domain;
 
 use AppBundle\Domain\LastTweets;
-use AppBundle\Services\TwitterServiceInterface;
+use AppBundle\Service\TwitterServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class LastTweetsTest extends TestCase

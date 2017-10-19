@@ -1,4 +1,4 @@
-<?php namespace AppBundle\Services;
+<?php namespace AppBundle\Service;
 
 class TwitterService implements TwitterServiceInterface
 {

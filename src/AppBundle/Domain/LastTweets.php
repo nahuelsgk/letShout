@@ -1,6 +1,6 @@
 <?php namespace AppBundle\Domain;
 
-use AppBundle\Services\TwitterServiceInterface;
+use AppBundle\Service\TwitterServiceInterface;
 
 class LastTweets
 {

@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Domain\LastTweets;
-use AppBundle\Services\TwitterService;
+use AppBundle\Service\TwitterService;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Cache\Simple\FilesystemCache;
@@ -15,15 +15,20 @@ class ApiController extends FOSRestController
 {
     /**
      * @Route("/api/{screen_name}/{count}")
-     * @param Request $request
-     * @param string  $screen_name
-     * @param int     $count
+     * @param Request        $request
+     * @param TwitterService $twitter_service
+     * @param string         $screen_name
+     * @param int            $count
      *
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param string $screen_name
      */
-    public function getLastNTwitterCacheAction(Request $request, $screen_name, $count)
-    {
+    public function getLastNTwitterServiceAction(
+        Request $request,
+        TwitterService $twitter_service,
+        $screen_name,
+        $count
+    ) {
         $use_cache = filter_var($request->query->get('cache', true), FILTER_VALIDATE_BOOLEAN);
 
         $cache = new FilesystemCache();
@@ -32,13 +37,6 @@ class ApiController extends FOSRestController
         if ($cache->has($key) && $use_cache === true) {
             $tweets = $cache->get($key);
         } else {
-            $twitter_service = new TwitterService(
-                $this->container->getParameter('oauth_access_token'),
-                $this->container->getParameter('oauth_access_token_secret'),
-                $this->container->getParameter('consumer_key'),
-                $this->container->getParameter('consumer_secret')
-            );
-
             $last_tweets = new LastTweets($twitter_service, $screen_name, $count);
 
             if ($last_tweets->userNotFound()) {

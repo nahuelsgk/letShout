@@ -29,6 +29,13 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Service\TwitterService:
+        public: true
+        arguments:
+            $oauth_access_token: "%oauth_access_token%"
+            $oauth_access_token_secret: "%oauth_access_token_secret%"
+            $consumer_key: "%consumer_key%"
+            $consumer_secret: "%consumer_secret%"
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
