@@ -42,7 +42,7 @@ php vendor/bin/phpunit tests/AppBundle/LastTweetsTest
 
 Functional tests:
 ````
-php vendor/bin/phpunit tests/AppBundle/
+php vendor/bin/phpunit tests/AppBundle/Controller
 ````
 
 Api endpoints
