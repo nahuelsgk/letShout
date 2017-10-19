@@ -31,7 +31,7 @@ class LastTweets
         $this->screen_name    = $screen_name;
         $this->count          = $count;
         $this->tweets         = null;
-        $this->user_not_found = false;
+        $this->user_not_found = true;
         $this->no_connection  = false;
         $this->init();
     }
@@ -40,12 +40,10 @@ class LastTweets
     {
         try {
             $response = $this->tweet_service->getUser($this->screen_name);
-            if ($this->responseHasErrors($response)) {
-                $this->errors[] = $response;
-                $this->user_not_found = true;
-            } else {
-                $tweets       = $this->tweet_service->getLastTweets($this->screen_name, $this->count);
-                $this->tweets = $tweets;
+            if (! $this->responseHasErrors($response)) {
+                $this->user_not_found = false;
+                $tweets               = $this->tweet_service->getLastTweets($this->screen_name, $this->count);
+                $this->tweets         = $tweets;
             }
         } catch (\Exception $e) {
             $this->no_connection = true;
@@ -65,7 +63,19 @@ class LastTweets
 
     private function responseHasErrors($response)
     {
-        return array_key_exists('errors', $response);
+        if (array_key_exists('errors', $response)) {
+            switch ($response->errors[0]->code) {
+                case 215:
+                    $this->errors[] = $response;
+                    $this->no_connection = true;
+                    break;
+                default:
+                    $this->errors[] = $response;
+                    $this->user_not_found = true;
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

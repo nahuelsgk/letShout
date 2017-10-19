@@ -39,6 +39,14 @@ class ApiController extends FOSRestController
         } else {
             $last_tweets = new LastTweets($twitter_service, $screen_name, $count);
 
+            if ($last_tweets->hasConnectionProblems()) {
+                return new JsonResponse(
+                    ['errors' =>
+                         'Connection problems: make sure you got internet or your params twitter tokens are correct'],
+                    500
+                );
+            }
+
             if ($last_tweets->userNotFound()) {
                 return new JsonResponse(['errors' => 'User not found'], 404);
             }
