@@ -48,9 +48,33 @@ class TwitterService implements TwitterServiceInterface
         $tweets = $twitter->setGetfield($get)
             ->buildOauth($url, $requestMethod)
             ->performRequest();
-        
-        $tweets = json_decode($tweets);
+
+        $tweets = $this->tweetsToUpperCase($tweets);
 
         return $tweets;
+    }
+
+    /**
+     * @param $tweets_string
+     *
+     * @return mixed|string
+     */
+    private function tweetsToUpperCase($tweets_string)
+    {
+        $tweets_array = [];
+        try {
+            $tweets_string = mb_strtoupper($tweets_string, 'UTF-8');
+            $tweets_string = str_replace('FALSE', 'false', $tweets_string);
+            $tweets_string = str_replace('TRUE', 'true', $tweets_string);
+            $tweets_string = str_replace('NULL', 'null', $tweets_string);
+            $tweets_string = preg_replace("/\\\\U([0-9A-F]{4})/e", 'strtolower("$0")', $tweets_string);
+            $tweets_string = preg_replace("/\\\\([A-Z]{1})/e", 'strtolower("$0")', $tweets_string);
+            $tweets_array  = json_decode($tweets_string);
+        } catch (\Exception $e) {
+            dump($e->getMessage());
+            die();
+        }
+
+        return $tweets_array;
     }
 }
